@@ -1,0 +1,121 @@
+
+
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../repository/prisma"
+  
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id     String  @id
+  email  String  @unique
+  name   String
+  password String?
+  totalCreation Int @default(0)
+  credits Int @default(20)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  emailVerified Boolean @default(false)
+
+  projects WebsiteProject[]
+  accounts Account[]
+  transactions Transaction[]
+
+  @@map("user")
+}
+
+model Account {
+  id String @id @default(uuid())
+  accountId String
+  providerId String
+  userId String
+  accessToken String?
+  refreshToken String?
+  idToken String?
+  scope String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@map("account")
+
+}
+
+model WebsiteProject {
+  id String @id @default(uuid())
+  name String
+  initial_prompt String
+  current_code String? @db.Text
+  currentVersionId String? @unique
+  userId String
+  isPublished Boolean @default(false)
+  aiModel String @default("openrouter")
+
+  user User @relation(fields: [userId], references: [id])
+  conversation Conversation[]
+  versions Version[] @relation("ProjectVersions")
+  currentVersion Version? @relation("CurrentVersion", fields: [currentVersionId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Conversation{
+  id String @id @default(uuid())
+  role  Role
+  content String @db.Text
+  timestamp DateTime @default(now())
+  projectId String
+
+  project WebsiteProject @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+}
+
+enum Role{
+  user 
+  assistant
+}
+
+model Version{
+  id String @id @default(uuid())
+  code String @db.Text
+  description String?
+  aiModel String?
+  timeStamp DateTime @default(now())
+  projectId String
+  project WebsiteProject @relation("ProjectVersions",fields: [projectId],references: [id], onDelete: Cascade)
+  currentFor WebsiteProject? @relation("CurrentVersion")
+}
+
+model Transaction{
+  id String @id @default(uuid())
+  isPaid Boolean @default(false)
+  planId String
+  amount Float
+  credits Int
+  userId String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+}
+
+model Verification{
+  id String @id
+  identifier String
+  value String
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@index([identifier])
+  @@map("verification")
+}
