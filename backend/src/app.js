@@ -12,8 +12,8 @@ const corsOptions = {
 //Middlewares
 app.use(cors(corsOptions));
 app.use(express.json());
-app.use(errorMiddleware);
 
 app.use("/api", authRouter)
 
+app.use(errorMiddleware);
 export default app;

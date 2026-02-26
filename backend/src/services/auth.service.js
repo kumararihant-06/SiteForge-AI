@@ -1,7 +1,9 @@
 import {prisma} from "../prisma/client.js";
+import { sendVerificationEmail } from "../utils/email.js";
 import { hashPassword, comparePassword } from "../utils/hash.js";
 import { generateToken } from "../utils/jwt.js";
 import { v4 as uuidv4} from "uuid";
+
 export async function registerUserService({name,email,password}){
     const existingUser = await prisma.user.findUnique({where:{email}});
     if(existingUser){
@@ -19,6 +21,18 @@ export async function registerUserService({name,email,password}){
             password: hashedPassword
         }
     });
+
+    const verificationToken = uuidv4();
+    await prisma.verification.create({
+        data:{
+            id: uuidv4(),
+            identifier: email,
+            value: verificationToken,
+            expiresAt: new Date(Date.now()+24*60*60*1000)
+        }
+    })
+
+    await sendVerificationEmail(email, verificationToken);
 
     const token = generateToken({userId: user.id, email: user.email});
     return {token, user:{id: user.id,name: user.name, email: user.email}};
@@ -49,6 +63,33 @@ export async function loginUserService({email, password}){
     return {token,user:{id: user.id, name: user.name, email: user.email}}
 }
 
-export async function logout (){
+export async function verifyEmailService (token){
+    const verification = await prisma.verification.findFirst({
+        where:{
+            value: token
+        }
+    })
 
+    if(!verification){
+        const error = new Error("Invalid verification token.")
+        error.status = 400;
+        throw error;
+    }
+
+    if(verification.expiresAt < new Date()){
+        const error = new Error("Verificcation token has expired.")
+        error.status = 400;
+        throw error;
+    }
+
+    await prisma.user.update({
+        where:{email: verification.identifier},
+        data:{emailVerified: true}
+    })
+
+    await prisma.verification.delete({
+        where:{id: verification.id}
+    })
+
+    return {message: "Email verified successfully."}
 }
