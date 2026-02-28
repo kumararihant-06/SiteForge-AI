@@ -1,10 +1,10 @@
 import {prisma} from "../prisma/client.js";
 import { sendVerificationEmail } from "../utils/email.js";
 import { hashPassword, comparePassword } from "../utils/hash.js";
-import { generateToken } from "../utils/jwt.js";
+import { generateToken, verifyToken } from "../utils/jwt.js";
 import { v4 as uuidv4} from "uuid";
 
-export async function registerUserService({name,email,password}){
+export async function registerService({name,email,password}){
     const existingUser = await prisma.user.findUnique({where:{email}});
     if(existingUser){
         const error = new Error("User with this email already exists.");
@@ -38,7 +38,7 @@ export async function registerUserService({name,email,password}){
     return {token, user:{id: user.id,name: user.name, email: user.email}};
 }
 
-export async function loginUserService({email, password}){
+export async function loginService({email, password}){
     const user = await prisma.user.findUnique({where:{email}});
     if(!user){
         const error = new Error("Invalid email or password.")
@@ -92,4 +92,33 @@ export async function verifyEmailService (token){
     })
 
     return {message: "Email verified successfully."}
+}
+
+export async function logoutService(token){
+    const decoded = verifyToken(token);
+
+    if(!decoded){
+        const error = new Error("Invalid token.");
+        error.status= 401;
+        throw error
+    }
+
+    await prisma.verification.deleteMany({
+        where:{
+            identifier:"blacklisted-token",
+            expiresAt: {lt : new Date()}
+        }
+    })
+
+    await prisma.verification.create({
+        data:{
+            id: uuidv4(),
+            identifier:"blacklisted-token",
+            value: token,
+            expiresAt: new Date(decoded.exp*1000)
+        }
+    })
+
+    return {message: "Logged out successfully."}
+ 
 }

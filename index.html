@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bean & Bloom Café</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <script type="module">
+    export default {
+      darkMode: 'class',
+      content: ['./**/*.{html,js}'],
+      theme: {
+        extend: {
+          colors: {
+            espresso: '#2b1e1e',
+            latte: '#d9cbb5',
+            sage: '#a3b18a',
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            serif: ['Playfair Display', 'serif'],
+          },
+          keyframes: {
+            'fade-in': {
+              '0%': { opacity: '0' },
+              '100%': { opacity: '1' },
+            },
+          },
+          animation: {
+            'fade-in': 'fade-in 0.8s ease-out forwards',
+          },
+        },
+      },
+      plugins: [],
+    }
+  </script>
+  <style>
+    body {
+      @apply bg-latte text-espresso font-sans;
+    }
+    .hero-video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+    .nav-link.active {
+      @apply border-b-2 border-espresso;
+    }
+    .fade-in {
+      animation: fade-in 0.8s ease-out forwards;
+    }
+  </style>
+</head>
+<body class="font-sans leading-relaxed text-base md:text-lg">
+  <!-- Navigation -->
+  <nav class="bg-white shadow-sm sticky top-0 z-10">
+    <div class="max-w-5xl mx-auto flex items-center justify-between p-4">
+      <a href="#" class="text-2xl font-serif text-espresso font-bold">Bean &amp; Bloom Café</a>
+      <ul class="hidden md:flex space-x-6">
+        <li><a href="#hero" class="nav-link hover:text-sage flex items-center gap-1">Home</a></li>
+        <li><a href="#story" class="nav-link hover:text-sage">Our Story</a></li>
+        <li><a href="#drinks" class="nav-link hover:text-sage">Signature Drinks</a></li>
+        <li><a href="#visit" class="nav-link hover:text-sage">Visit Us</a></li>
+        <li class="md:hidden">
+          <button class="p-2 rounded-md hover:bg-sage">
+            <svg class="h-6 w-6 text-espresso" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+          </button>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section id="hero" class="relative overflow-hidden flex flex-col items-center justify-center min-h-screen bg-gray-100">
+    <video class="hero-video absolute inset-0 opacity-80 object-cover" autoplay muted loop playsinline>
+      <source src="https://placehold.co/1920x1080?text=coffee-pour-loop.mp4" type="video/mp4">
+    </video>
+    <div class="relative text-center px-4 sm:px-8">
+      <h1 class="text-5xl md:text-6xl font-serif text-white bg-gradient-to-r from-sage to-espresso bg-clip-text text-transparent tracking-wide uppercase font-bold lg:tracking-tight">Bean &amp; Bloom Café</h1>
+      <p class="mt-4 text-lg md:text-xl text-white max-w-2xl mx-auto bg-latte bg-opacity-80 rounded-lg p-4">
+        Cozy rustic charm meets modern minimalism. Savor the perfect brew.
+      </p>
+      <a href="#story" class="mt-6 inline-block bg-sage hover:bg-espresso text-white font-medium py-3 px-8 rounded-full shadow-lg transition transform hover:scale-105">
+        Reserve Your Table
+      </a>
+    </div>
+  </section>
+
+  <!-- Our Story -->
+  <section id="story" class="py-20 md:py-24">
+    <div class="max-w-4xl mx-auto px-4 space-y-12">
+      <h2 class="text-4xl md:text-5xl font-serif text-espresso text-center animate-fade-in">Our Story</h2>
+      <p class="text-center text-lg md:text-xl text-gray-700 max-w-2xl mx-auto animate-fade-in">
+        Founded in 2015, Bean &amp; Bloom began as a small corner shop with a love for handcrafted coffee and a vision to blend the warmth of rustic interiors with sleek, minimal design. Each cup is a story, each bean a journey.
+      </p>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 animate-fade-in">
+        <div class="bg-latte bg-opacity-50 rounded-lg p-4 shadow-sm animate-fade-in">
+          <h3 class="font-serif text-sage text-lg">2015</h3>
+          <p class="mt-1 text-sm">First espresso machine installed.</p>
+        </div>
+        <div class="bg-latte bg-opacity-50 rounded-lg p-4 shadow-sm animate-fade-in">
+          <h3 class="font-serif text-sage text-lg">2018</h3>
+          <p class="mt-1 text-sm">Expanded to a full café.</p>
+        </div>
+        <div class="bg-latte bg-opacity-50 rounded-lg p-4 shadow-sm animate-fade-in">
+          <h3 class="font-serif text-sage text-lg">2022</h3>
+          <p class="mt-1 text-sm">Introduced signature drinks.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Signature Drinks -->
+  <section id="drinks" class="py-16 md:py-20 animate-fade-in">
+    <div class="max-w-5xl mx-auto px-4">
+      <h2 class="text-4xl md:text-5xl font-serif text-espresso text-center mb-12 animate-fade-in">Signature Drinks</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 animate-fade-in">
+        <div class="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow overflow-hidden animate-fade-in">
+          <img src="https://placehold.co/600x400?text=Drink+1" alt="Signature Drink 1" class="w-full h-48 object-cover">
+          <div class="p-4">
+            <h3 class="font-serif text-sage text-xl mb-2">Velvet Mocha</h3>
+            <p class="text-lg md:text-xl font-medium text-espresso">$5.99</p>
+            <button class="mt-3 w-full bg-sage hover:bg-espresso text-white font-medium py-2 rounded-md transition-colors">
+              Quick Order
+            </button>
+          </div>
+        </div>
+        <div class="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow overflow-hidden animate-fade-in">
+          <img src="https://placehold.co/600x400?text=Drink+2" alt="Signature Drink 2" class="w-full h-48 object-cover">
+          <div class="p-4">
+            <h3 class="font-serif text-sage text-xl mb-2">Hazelnut Latte</h3>
+            <p class="text-lg md:text-xl font-medium text-espresso">$4.75</p>
+            <button class="mt-3 w-full bg-sage hover:bg-espresso text-white font-medium py-2 rounded-md transition-colors">
+              Quick Order
+            </button>
+          </div>
+        </div>
+        <div class="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow overflow-hidden animate-fade-in">
+          <img src="https://placehold.co/600x400?text=Drink+3" alt="Signature Drink 3" class="w-full h-48 object-cover">
+          <div class="p-4">
+            <h3 class="font-serif text-sage text-xl mb-2">Cold Brew Nitro</h3>
+            <p class="text-lg md:text-xl font-medium text-espresso">$6.50</p>
+            <button class="mt-3 w-full bg-sage hover:bg-espresso text-white font-medium py-2 rounded-md transition-colors">
+              Quick Order
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Visit Us -->
+  <section id="visit" class="py-16 md:py-24 bg-latte animate-fade-in">
+    <div class="max-w-4xl mx-auto px-4">
+      <h2 class="text-4xl md:text-5xl font-serif text-espresso text-center mb-8 animate-fade-in">Visit Us</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start animate-fade-in">
+        <div class="space-y-4 animate-fade-in">
+          <p class="text-lg md:text-xl text-gray-800">
+            Our café is open daily from 7am to 7pm. Enjoy the aroma of freshly roasted beans in a tranquil setting.
+          </p>
+          <ul class="list-none space-y-2 animate-fade-in">
+            <li class="flex items-center gap-2"><svg class="h-5 w-5 text-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 6h14M5 18h14"></path></svg>Mon - Fri: 7am - 7pm</li>
+            <li class="flex items-center gap-2"><svg class="h-5 w-5 text-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 6h14M5 18h14"></path></svg>Sat - Sun: 7am - 7pm</li>
+          </ul>
+          <button class="mt-4 inline-block bg-sage hover:bg-espresso text-white font-medium py-2 px-6 rounded-full transition-transform hover:scale-105 animate-fade-in">
+            Order Online
+          </button>
+        </div>
+        <div class="bg-white rounded-lg shadow-sm p-4 animate-fade-in">
+          <iframe class="w-full h-96 rounded-md border-0" src="https://www.google.com/maps/embed?q=123+Main+St%2C+City&t=&z=14&ie=UTF8&output=embed" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter Signup -->
+  <section class="bg-sage py-12 animate-fade-in">
+    <div class="max-w-2xl mx-auto px-4 text-center">
+      <h2 class="text-3xl md:text-4xl font-serif text-white mb-4 animate-fade-in">Stay Brewed</h2>
+      <p class="text-lg md:text-xl text-white max-w-md mx-auto mb-6 animate-fade-in">
+        Join our newsletter for exclusive offers, new drinks, and events.
+      </p>
+      <form class="max-w-md mx-auto bg-white rounded-lg p-6 shadow-lg animate-fade-in">
+        <div class="flex flex-col sm:flex-row gap-2 mb-4 animate-fade-in">
+          <input type="email" placeholder="Your email" class="flex-1 px-4 py-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-sage" required>
+          <button type="submit" class="px-6 py-3 bg-espresso text-white rounded-md font-medium hover:bg-sage transition-colors animate-fade-in">
+            Subscribe
+          </button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-espresso py-12 text-white text-center animate-fade-in">
+    <div class="max-w-4xl mx-auto px-4">
+      <p>&copy; 2025 Bean &amp; Bloom Café. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- JavaScript for smooth scroll, active nav, and fade‑in -->
+  <script>
+    // Smooth scroll for internal links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.getElementById(this.getAttribute('href').slice(1));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+
+    // Highlight active navigation link on scroll
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-link');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        const id = entry.target.id;
+        if (entry.isIntersecting) {
+          navLinks.forEach(link => {
+            link.classList.remove('font-medium', 'tracking-tight');
+            if (link.getAttribute('href') === `#${id}`) {
+              link.classList.add('font-medium', 'tracking-tight');
+            }
+          });
+        }
+      });
+    }, { threshold: 0.5 });
+    sections.forEach(sec => observer.observe(sec));
+
+    // Fade‑in on scroll for elements with .fade-in class
+    const fadeElems = document.querySelectorAll('.fade-in');
+    const fadeObserver = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.remove('opacity-0');
+          entry.target.classList.add('opacity-100');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    fadeElems.forEach(el => {
+      el.classList.add('opacity-0');
+      fadeObserver.observe(el);
+    });
+  </script>
+</body>
+</html>
