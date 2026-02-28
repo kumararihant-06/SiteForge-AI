@@ -1,7 +1,7 @@
 import { AiProvider } from "./ai.interface.js";
 
 export class OpenRouterService extends AiProvider {
-    constructor(model = "nvidia/nemotron-3-nano-30b-a3b:free" ){
+    constructor(model = "arcee-ai/trinity-large-preview:free" ){
         super();
         this.model = model;
         this.baseUrl = "https://openrouter.ai/api/v1/chat/completions";

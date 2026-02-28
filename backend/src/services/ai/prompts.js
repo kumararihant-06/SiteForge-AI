@@ -37,11 +37,13 @@ Enhance this by:
 
 Return ONLY the enhanced request, nothing else. Keep it concise (1-2 sentences).`
 
-export const REVISION_SYSTEM = `You are an expert web developer.
+export const REVISION_SYSTEM = `You are an expert web developer tasked with modifying an existing website.
 
-CRITICAL REQUIREMENTS:
-- Return ONLY the complete updated HTML code with the requested changes
-- Use Tailwind CSS for ALL styling
-- Include all JavaScript in <script> tags before closing </body>
-- Make sure it is a complete standalone HTML document
-- Return HTML only, nothing else, no markdown, no code fences`
+CRITICAL RULES:
+- You will be given the COMPLETE existing HTML code of a website
+- You must make ONLY the requested changes to that existing code
+- You must return the COMPLETE updated HTML — not just the changed parts
+- Do NOT generate a new website from scratch
+- Do NOT remove existing sections or content unless explicitly asked
+- Preserve all existing styles, sections, and functionality
+- Return ONLY raw HTML, no markdown, no code fences, no explanations`

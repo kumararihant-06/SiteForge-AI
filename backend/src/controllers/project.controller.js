@@ -1,4 +1,4 @@
-import { createProject, deleteProject, getSingleProject, getUserProjects, saveProjectCode, togglePublish } from "../services/project.service.js";
+import { createProject, deleteProject, getPublishedProject, getPublishedProjects, getSingleProject, getUserProjects, makeRevision, rollbackToVersion, saveProjectCode, togglePublish } from "../services/project.service.js";
 
 export async function createProjectController(req,res,next) {
     try {
@@ -64,3 +64,52 @@ export async function togglePublishController(req, res, next){
         next(error)
     }
 }
+
+export async function makeRevisionController(req, res, next){
+    try {
+        const {prompt} = req.body;
+        if(!prompt){
+            return res.status(400).json({message: "Prompt is required to make changes."})
+        }
+        const result = await makeRevision({
+            projectId: req.params.id,
+            userId: req.user.userId,
+            prompt
+        });
+        res.status(200).json(result)
+    } catch (error) {
+        next(error)
+    }
+
+}
+
+export async function rollbackToVersionController(req,res, next){
+    try {
+        const result = await rollbackToVersion({
+            projectId: req.params.projectId,
+            userId: req.user.userId,
+            versionId: req.params.versionId
+        });
+        res.status(200).json(result)
+    } catch (error) {
+        next(error)
+    }
+}
+
+export async function getPublishedProjectsController(req, res, next){
+    try {
+        const result = await getPublishedProjects();
+        res.status(200).json(result)
+    } catch (error) {
+        next(error)
+    }
+}
+
+export async function getPublishedProjectController(req, res, next){
+    try {
+        const result = await getPublishedProject(req.params.id);
+    } catch (error) {
+        next(error);
+    }
+}
+
