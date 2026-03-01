@@ -17,7 +17,7 @@ projectRouter.get("/all-projects", getUserProjectsController)
 projectRouter.get("/all-projects/:id", getSingleProjectController)
 projectRouter.delete("/all-projects/:id", deleteProjectController)
 projectRouter.put("/save/:id", saveProjectCodeController)
-projectRouter.get("/publish/:id", togglePublishController)
+projectRouter.put("/publish/:id", togglePublishController)
 projectRouter.post("/revision/:id", makeRevisionController)
 projectRouter.get("/rollback/:projectId/:versionId", rollbackToVersionController)
 
