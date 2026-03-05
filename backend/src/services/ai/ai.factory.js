@@ -1,9 +1,9 @@
-import { OpenRouterService } from "./openrouter.service.js";
+import { GeminiService } from "./gemini.service.js";
 
-export function createAIProvider(provider = "openrouter", model){
+export function createAIProvider(provider = "gemini", model){
     switch (provider) {
-        case "openrouter":
-            return new OpenRouterService(model);
+        case "gemini":
+            return new GeminiService(model)
         default: 
             throw new Error(`Unknown AI provider: ${provider}`)
     }

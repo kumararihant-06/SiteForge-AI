@@ -26,20 +26,19 @@ export const updatePasswordAPI = (data) => api.put("/users/update-password", dat
 export const deleteAccountAPI = () => api.delete("/users/delete-account");
 
 //Project APIs:
-export const createProjectAPI = (data) => api.post("/project/create", data)
+export const createProjectAPI = (data) => api.post("/projects/create", data)
 export const getProjectsAPI = () => api.get("/projects/all-projects");
-export const getSingleProjectsAPI = (id) => api.get(`/projects/all-projects/${id}`);
+export const getSingleProjectAPI = (id) => api.get(`/projects/all-projects/${id}`);
 export const deleteProjectsAPI = (id) => api.delete(`/projects/all-projects/${id}`);
 export const saveProjectAPI = (id,data) => api.put(`/projects/save/${id}`,data);
 export const togglePublishAPI = (id) => api.put(`/projects/publish/${id}`);
 export const makeRevisionAPI = (id,data) => api.post(`/projects/revision/${id}`,data);
 export const rollbackAPI = (projectId, versionId) => api.get(`/projects/rollback/${projectId}/${versionId}`);
-
 //Community APIs:
 export const getPublishedProjectsAPI = () => api.get("/projects/published");
 export const getPublishedProjectAPI = (id) => api.get(`/projects/published/${id}`);
 
 //Payment APIs:
-export const createOrderAPI = (data) => api.post("/payments/create-orders", data);
+export const createOrderAPI = (data) => api.post("/payments/create-order", data);
 export const verifyPaymentAPI = (data) => api.post("/payments/verify", data);
 

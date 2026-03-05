@@ -2,7 +2,7 @@ import { createProject, deleteProject, getPublishedProject, getPublishedProjects
 
 export async function createProjectController(req,res,next) {
     try {
-        const {prompt, aiProvider = "openrouter", aiModel} = req.body;
+        const {prompt, aiProvider = "gemini", aiModel} = req.body;
 
         if(!prompt) return res.status(400).json({error: "Prompt is required."})
 
@@ -108,6 +108,7 @@ export async function getPublishedProjectsController(req, res, next){
 export async function getPublishedProjectController(req, res, next){
     try {
         const result = await getPublishedProject(req.params.id);
+        res.status(200).json(result);
     } catch (error) {
         next(error);
     }

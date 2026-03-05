@@ -2,6 +2,7 @@ import { Router } from "express";
 import { authenticate } from "../middleware/auth.middleware.js";
 import { createProjectController, deleteProjectController, getPublishedProjectController, getPublishedProjectsController, getSingleProjectController, getUserProjectsController, makeRevisionController, rollbackToVersionController, saveProjectCodeController, togglePublishController } from "../controllers/project.controller.js";
 
+
 const projectRouter = Router();
 
 //public routes - no auth needed
